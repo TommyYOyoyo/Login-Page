@@ -1,0 +1,278 @@
+/* Bienvenue fades in and out */
+@keyframes popUp {
+    0% {
+        width: auto;
+        height: auto;
+        color: rgba(255, 255, 255, 0);
+    }
+    40% {
+        width: auto;
+        height: auto;
+        color: rgba(255, 255, 255, 1);
+    }
+    60% {
+        width: auto;
+        height: auto;
+        color: rgba(255, 255, 255, 1);
+    }
+    100% {
+        width: auto;
+        height: auto;
+        color: rgba(255, 255, 255, 0);
+    }
+}
+
+/* Background image loads blurred but slowly fades in */
+@keyframes blurIn {
+    from {
+        backdrop-filter: blur(100px);
+    }
+    to {
+        backdrop-filter: none;
+    }
+}
+
+/* form fades in once the welcome text disappears */
+@keyframes formAnimation {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+    90% {
+        opacity: 0;
+        display: none;
+    }
+    100% {
+        opacity: 1;
+        backdrop-filter: blur(10px);
+    }
+}
+
+/* Button fading into blue animation */
+@keyframes buttonAnimation {
+    to {
+        background-color: rgba(0, 85, 131, 0.75);
+        color: white;
+    }
+}
+
+/* Ensure page takes the entire viewport */
+html {
+    width: 100%;
+    height: 100%;
+}
+
+/* Styling applying to both pages */
+.register,
+.login {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+
+    display: flex; /* Body elements are flexible */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url("https://images.unsplash.com/photo-1548598187-35e00175d911?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    font-family: Quicksand;
+}
+
+/* Styling applying to only register page */
+.register {
+    animation: blurIn linear 5s;
+}
+
+/* Welcome text styling and animation */
+#welcomeText {
+    position: absolute;
+    margin-top: auto;
+    color: rgb(0, 0, 0, 0);
+    font-size: 100px;
+    font-family: Quicksand bold;
+    animation: popUp linear 3s;
+    width: 0;
+    height: 0;
+}
+
+/* Styling of both containers */
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+
+    font-size: 20px;
+
+    width: 400px;
+    max-height: 580px;
+    backdrop-filter: blur(10px);
+}
+
+.containerRegister {
+    animation: formAnimation 4s;
+}
+
+/* Default styling of elements in the Container class */
+.container * {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: white;
+}
+
+#form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form title styling */
+#formTitle {
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+/* Text input boxes styling */
+#form input[type=text], #form input[type=password]{
+    width: 94%;
+    height: 20px;
+    font-size: 15px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#passwords {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.passwordBox {
+    width: 100%;
+    margin: 0;
+    position: relative;
+}
+
+.passwordBox img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+
+    margin: 0;
+
+    position: absolute;
+    right: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.passwordBox img:hover {
+    filter: invert(50%);
+    cursor: pointer;
+}
+
+/* Forget Password & remember me & login styling */
+#options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 30px;
+    padding: 10px;
+
+    font-size: 15px;
+}
+
+#options * {
+    width: 100%;
+}
+
+/* Login and forget password redirect div styling */
+#redirects {
+    margin-right: auto;
+    flex-direction: column;
+}
+
+/* Styling of elements from the redirects div */
+#redirects * {
+    color: aquamarine;
+}
+
+/* Links on hover */
+#redirects *:hover {
+    color: rgb(127, 189, 255);
+}
+
+/*  */
+#rememberMeBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    margin: 18px;
+}
+
+#rememberMeBox * {
+    margin: 5px;
+    padding: 5px;
+}
+
+#rememberMe {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+#rememberMe:hover {
+    cursor: pointer;
+}
+
+#submitButton {
+    width: 100%;
+    height: 50px;
+    border: none;
+
+    color: black;
+    background-color: white;
+    font-size: 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    padding: 5px;
+}
+
+#submitButton:hover {
+    cursor: pointer;
+}
+
+#submitButton:hover {
+    animation: buttonAnimation 0.3s linear forwards;
+}
+#submitButton:active {
+    animation: none;
+    background-color: rgb(0, 47, 47);
+    color: white;
+}
+
+.warning {
+    color: red;
+    font-size: 15px;
+    margin: 0;
+}

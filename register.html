@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passman</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Quicksand:wght@300&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./assets/shape.png">
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body class="register">
+    <h1 id="welcomeText">BIENVENUE.</h1>
+
+    <div class="containerRegister container">
+
+        <h2 id="formTitle">S'INSCRIRE</h2>
+
+        <form id="form">
+
+            <label>Identifiant:</label>
+            <input type="text" id="username" placeholder="ABC">
+            <label id="idWarning" class="warning"></label>
+
+            <label>Courriel:</label>
+            <input type="text" id="email" placeholder="abc123@gmail.com">
+            <label id="emailWarning" class="warning"></label>
+
+            <span id="passwords">
+                <label>Mot de passe:</label>
+                <div class="passwordBox">
+                    <input type="password" id="password" placeholder="Votre mot de passe">
+                    <img src="./assets/eye.png" id="seePassword">
+                </div>
+                <label id="passwordWarning" class="warning"></label>
+
+                <label>Confirmez le mot de passe:</label>
+                <div class="passwordBox">
+                    <input type="password" id="confirmPassword" placeholder="Votre mot de passe">
+                    <img src="./assets/eye.png" id="seeConfirmedPassword">
+                </div>
+                <label id="confirmPasswordWarning" class="warning"></label>
+            </span>
+
+            <div id="options">
+                <div id="redirects">
+                    <div id="loginRedirect">
+                        <a href="./login.html">Se connecter</a>
+                    </div>
+                </div>
+                
+                <div id="rememberMeBox">
+                    <label id="rememberMeLabel">Se souvenir de moi</label>
+                    <input type="checkbox" id="rememberMe">
+                </div>
+            </div>
+
+            <input type="submit" value="CRÉER UN COMPTE" id="submitButton">
+        </form>
+    </div>
+
+    <script src="./js/register.js" type="module"></script>
+</body>
+
+</html>
