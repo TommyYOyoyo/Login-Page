@@ -27,8 +27,9 @@ function verifyEmail(email, e) {
         e.preventDefault();
         warning.innerHTML = "*Ce champs est obligatoire.";
         return false;
-    // Search for the presence of "text+@+text", if it doesn't exist, the email is invalid. Warns the user.
-    } else if (email.value.search(/\w+@\w+/g) < 0 || email.value.search(/(\s+)/g) > 0) {
+    // Search for the presence of "text+@+text" and whitespaces. 
+    // Email = invalid if it contains any whitespace or doesn't contain "text+@+text".
+    } else if (email.value.search(/\w+@\w+/g) < 0 || email.value.search(/\s/g) > -1) {
         e.preventDefault();
         warning.innerHTML = "*Adresse Email Invalide";
         return false;
@@ -48,9 +49,14 @@ function verifyPassword(password, e) {
             warning.innerHTML = "*Votre mot de passe doit contenir au moins 8 caractères.";
             return false;
         // Check empty spaces, and warn if true
-        case password.value.search(/\s+/g) > 0:
+        case password.value.search(/\s/g) > -1:
             e.preventDefault();
             warning.innerHTML = "*Votre mot de passe ne doit pas contenir d'espaces.";
+            return false;
+        // Check if password contains letters, and warn if not
+        case password.value.search(/[A-Za-z]/g) < 0:
+            e.preventDefault();
+            warning.innerHTML = "*Votre mot de passe doit contenir des lettres.";
             return false;
         // Check if password contains special characters, and warn if not
         case password.value.search(/([^A-Z0-9a-z\s*])/g) < 0:
