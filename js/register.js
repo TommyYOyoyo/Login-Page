@@ -3,7 +3,7 @@ import { rememberMe, showPassword } from "./utils.js";
 // Main function
 function main() {
 
-    // Trigger register() once the form is submitted
+    // Trigger register() once the form is submitted, e = event
     document.querySelector("#form").addEventListener("submit", (e) => {
         register(e);
     });
@@ -17,6 +17,25 @@ function main() {
         showPassword(1);
     });
 
+}
+
+// Verify if username is correct
+function verifyUsername(username, e) {
+    const warning = document.querySelector("#idWarning");
+    // Check empty username and warn
+    if (username.value == "") {
+        warning.innerHTML = "Ce champs est obligatoire";
+        e.preventDefault();
+        return false;
+    // Check if username contains space, warn if true
+    } else if (username.value.search(/\s/g) > -1) {
+        warning.innerHTML = "Le nom d'utilisateur ne doit pas contenir d'espaces."
+        e.preventDefault();
+        return false;
+    }
+    // Erase any previous warnings if all cases are met
+    warning.innerHTML = "";
+    return true;
 }
 
 // Verify if email format is correct
@@ -96,6 +115,7 @@ function register(e) {
     const password = document.querySelector("#password");
     const confirmedPassword = document.querySelector("#confirmPassword");
 
+    verifyUsername(username, e);
     verifyEmail(email, e);
     verifyPassword(password, e);
     verifyIdenticalPassword(password, confirmedPassword, e);
