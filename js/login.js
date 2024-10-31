@@ -25,7 +25,7 @@ function login(e) {
     const id = document.querySelector("#id");
     const password = document.querySelector("#password");
     const confirmedPassword = document.querySelector("#confirmPassword");
-
+    
     verifyEmail(email, e);
     verifyPassword(password, e);
     verifyIdenticalPassword(password, confirmedPassword, e);

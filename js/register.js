@@ -26,16 +26,16 @@ function verifyUsername(username, e) {
     if (username.value == "") {
         warning.innerHTML = "Ce champs est obligatoire";
         e.preventDefault();
-        return false;
+        return 0;
     // Check if username contains space, warn if true
     } else if (username.value.search(/\s/g) > -1) {
         warning.innerHTML = "Le nom d'utilisateur ne doit pas contenir d'espaces."
         e.preventDefault();
-        return false;
+        return 0;
     }
     // Erase any previous warnings if all cases are met
     warning.innerHTML = "";
-    return true;
+    return 1;
 }
 
 // Verify if email format is correct
@@ -45,17 +45,17 @@ function verifyEmail(email, e) {
     if (email.value == "") {
         e.preventDefault();
         warning.innerHTML = "*Ce champs est obligatoire.";
-        return false;
+        return 0;
     // Search for the presence of "text+@+text" and whitespaces. 
     // Email = invalid if it contains any whitespace or doesn't contain "text+@+text".
     } else if (email.value.search(/\w+@\w+/g) < 0 || email.value.search(/\s/g) > -1) {
         e.preventDefault();
         warning.innerHTML = "*Adresse Email Invalide";
-        return false;
+        return 0;
     }
     // Erase any previous warning if all cases are met
     warning.innerHTML = "";
-    return true;
+    return 1;
 }
 
 // Verify if password respects criterias
@@ -66,31 +66,31 @@ function verifyPassword(password, e) {
         case password.value.length < 8:
             e.preventDefault();
             warning.innerHTML = "*Votre mot de passe doit contenir au moins 8 caractères.";
-            return false;
+            return 0;
         // Check empty spaces, and warn if true
         case password.value.search(/\s/g) > -1:
             e.preventDefault();
             warning.innerHTML = "*Votre mot de passe ne doit pas contenir d'espaces.";
-            return false;
+            return 0;
         // Check if password contains letters, and warn if not
         case password.value.search(/[A-Za-z]/g) < 0:
             e.preventDefault();
             warning.innerHTML = "*Votre mot de passe doit contenir des lettres.";
-            return false;
+            return 0;
         // Check if password contains special characters, and warn if not
         case password.value.search(/([^A-Z0-9a-z\s*])/g) < 0:
             e.preventDefault();
             warning.innerHTML = "*Votre mot de passe doit contenir un caractère spécial.";
-            return false;
+            return 0;
         // Check if password contains numbers, and warn if not
         case password.value.search(/([0-9])/g) < 0:
             e.preventDefault();
             warning.innerHTML = "*Votre mot de passe doit obligatoirement contenir un chiffre.";
-            return false;
+            return 0;
     }
     // Erase any previous warning if all cases are met
     warning.innerHTML = "";
-    return true;
+    return 1;
 }
 
 // Verify if two passwords are identical
@@ -100,11 +100,11 @@ function verifyIdenticalPassword(password, confirmedP, e) {
     if (password.value != confirmedP.value) {
         e.preventDefault();
         warning.innerHTML = "*Les mots de passe ne sont pas identiques.";
-        return false;
+        return 0;
     }
     // Erase any previous warning if the case had been met
     warning.innerHTML = "";
-    return true;
+    return 1;
 }
 
 // Register user
@@ -115,12 +115,18 @@ function register(e) {
     const password = document.querySelector("#password");
     const confirmedPassword = document.querySelector("#confirmPassword");
 
-    verifyUsername(username, e);
-    verifyEmail(email, e);
-    verifyPassword(password, e);
-    verifyIdenticalPassword(password, confirmedPassword, e);
+    const verif1 = verifyUsername(username, e);
+    const verif2 = verifyEmail(email, e);
+    const verif3 = verifyPassword(password, e);
+    const verif4 = verifyIdenticalPassword(password, confirmedPassword, e);
 
-    console.log("Success");
+    // If any verification isn't passed, the function stops here
+    if (verif1+verif2+verif3+verif4 != 4) return;
+
+    alert("Compte créé! Vous allez pouvoir vous diriger vers w3school maintenant.");
+
+    // Redirect to anther website
+    window.location = "https://www.w3schools.com";
 }
 
 main();
