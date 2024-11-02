@@ -1,4 +1,4 @@
-/* Bienvenue fades in and out */
+/* Text fades in and out */
 @keyframes popUp {
     0% {
         width: auto;
@@ -19,6 +19,7 @@
         width: auto;
         height: auto;
         color: rgba(255, 255, 255, 0);
+        display: none;
     }
 }
 
@@ -29,6 +30,16 @@
     }
     to {
         backdrop-filter: none;
+    }
+}
+
+/* Background image goes from unblur to blurred */
+@keyframes blurOut {
+    from {
+        backdrop-filter: none;
+    }
+    to {
+        backdrop-filter: blur(100px);
     }
 }
 
@@ -62,7 +73,7 @@ html {
     height: 100%;
 }
 
-/* Styling applying to both pages */
+/* Styling applying to both pages, background images and make both pages flexboxes to better center elements*/
 .register,
 .login {
     width: 100%;
@@ -83,24 +94,22 @@ html {
     font-family: Quicksand;
 }
 
-/* Styling applying to only register page */
+/* Animation applying to only register page */
 .register {
     animation: blurIn linear 5s;
 }
 
-/* Welcome text styling and animation */
+/* Welcome text styling and entrance animation */
 #welcomeText {
     position: absolute;
     margin-top: auto;
     color: rgb(0, 0, 0, 0);
     font-size: 100px;
     font-family: Quicksand bold;
-    animation: popUp linear 3s;
-    width: 0;
-    height: 0;
+    animation: popUp linear 3s forwards;
 }
 
-/* Styling of both containers */
+/* Styling of both main containers (they're both flexboxes) */
 .container{
     display: flex;
     flex-direction: column;
@@ -120,17 +129,19 @@ html {
     backdrop-filter: blur(10px);
 }
 
+/* Stylign of the main container of only the register page */
 .containerRegister {
     animation: formAnimation 4s;
 }
 
-/* Default styling of elements in the Container class */
+/* Default styling of elements in the container class */
 .container * {
     margin-top: 5px;
     margin-bottom: 5px;
     color: white;
 }
 
+/* Form is a flexbox */
 #form {
     width: 100%;
     display: flex;
@@ -144,7 +155,7 @@ html {
     font-size: 50px;
 }
 
-/* Text input boxes styling */
+/* Text input boxes styling and positioning */
 #form input[type=text], #form input[type=password]{
     width: 94%;
     height: 20px;
@@ -155,6 +166,7 @@ html {
     padding: 10px;
 }
 
+/* Password box styling takes the entire width and is a flexbox*/
 #passwords {
     width: 100%;
     display: flex;
@@ -162,12 +174,14 @@ html {
     margin: 0;
 }
 
+/* Container for each password section takes the entire width */
 .passwordBox {
     width: 100%;
     margin: 0;
     position: relative;
 }
 
+/* Eye button placement and styling */
 .passwordBox img {
     width: 20px;
     height: 20px;
@@ -181,12 +195,13 @@ html {
     transform: translateY(-50%);
 }
 
+/* Eye button styling on hover */
 .passwordBox img:hover {
     filter: invert(50%);
     cursor: pointer;
 }
 
-/* Forget Password & remember me & login styling */
+/* Forget Password & remember me & login styling (they're also flexboxes) */
 #options {
     display: flex;
     flex-direction: row;
@@ -200,17 +215,18 @@ html {
     font-size: 15px;
 }
 
+/* Everything in the option box must take 100% available space */
 #options * {
     width: 100%;
 }
 
-/* Login and forget password redirect div styling */
+/* Login and forget password redirect div positioning */
 #redirects {
     margin-right: auto;
     flex-direction: column;
 }
 
-/* Styling of elements from the redirects div */
+/* Redirects links are aquamarine colored */
 #redirects * {
     color: aquamarine;
 }
@@ -220,7 +236,7 @@ html {
     color: rgb(127, 189, 255);
 }
 
-/*  */
+/* Flex container of the rememberMe section */
 #rememberMeBox {
     display: flex;
     flex-direction: row;
@@ -229,20 +245,24 @@ html {
     margin: 18px;
 }
 
+/* Applies to every element of the rememberMe container */
 #rememberMeBox * {
     margin: 5px;
     padding: 5px;
 }
 
+/* rememberMe square input boundaries */
 #rememberMe {
     max-width: 20px;
     max-height: 20px;
 }
 
+/* rememberMe square input on hover, change pointer style */
 #rememberMe:hover {
     cursor: pointer;
 }
 
+/* Submit button stylings */
 #submitButton {
     width: 100%;
     height: 50px;
@@ -258,21 +278,45 @@ html {
     padding: 5px;
 }
 
+/* Submit button on hover, change pointer and trigger animation */
 #submitButton:hover {
     cursor: pointer;
-}
-
-#submitButton:hover {
     animation: buttonAnimation 0.3s linear forwards;
 }
+/* Submit button on click stylings */
 #submitButton:active {
     animation: none;
     background-color: rgb(0, 47, 47);
     color: white;
 }
 
+/* Warning box styling */
 .warning {
     color: red;
     font-size: 15px;
     margin: 0;
+}
+
+/* Successful Sign-In/Login redirect page positioning */
+.successfulSignIn, .successfulLogin {
+    display: none;
+    position: absolute;
+    margin-top: auto;
+    color: white;
+    text-align: center;
+
+    top: 50%;
+    transform: translateY(-50%);
+}
+/* Margin limits of the elements inside */
+.successfulSignIn *, .successfulLogin *{
+    margin: 5px;
+}
+/* Size and style of titles inside */
+.successfulSignIn h1, .successfulLogin h1{
+    font-family: Quicksand bold;
+    font-size: 60px;
+}
+.successfulSignIn h2, .successfulLogin h2{
+    font-size: 30px;
 }

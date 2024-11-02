@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Quicksand:wght@300&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../assets/shape.png">
+    <link rel="stylesheet" href="../css/style_registerLogin.css">
+
+</head>
+
+<!--Body, specified as login page body-->
+<body class="login">
+    <!--Container of the whole login box-->
+    <div class="containerLogin container">
+
+        <h2 id="formTitle">SE CONNECTER</h2>
+
+        <!--Inputs form-->
+        <form id="form">
+
+            <!--id division-->
+            <label>Adresse courriel:</label>
+            <input type="text" id="id" placeholder="Identifiant">
+            <label id="idWarning" class="warning"></label>
+
+            <!--password division-->
+            <label>Mot de passe:</label>
+            <div class="passwordBox">
+                <input type="password" id="password" placeholder="Votre mot de passe">
+                <img src="../assets/eye.png" id="seePassword">
+            </div>
+            <label id="passwordWarning" class="warning"></label>
+
+            <!--login options-->
+            <div id="options">
+                <div id="redirects">
+                    <div id="loginRedirect">
+                        <a href="./register.html">S'inscrire</a>
+                    </div>
+
+                    <div id="forgetPassword">
+                        <a href="https://www.linternaute.fr/dictionnaire/fr/definition/tant-pis/">Mot de passe oublié?</a>
+                    </div>
+                </div>
+
+                <div id="rememberMeBox">
+                    <label id="rememberMeLabel">Se souvenir de moi</label>
+                    <input type="checkbox" id="rememberMe">
+                </div>
+            </div>
+
+            <!--submit button-->
+            <input type="submit" value="CONNECTER" id="submitButton">
+        </form>
+    </div>
+
+    <!--Container of the alert page telling the user that they had successfully logged in -->
+    <div class="successfulLogin">
+        <h1>Connexion réussie!</h1>
+        <h2 id="loginAlertText"></h2>
+    </div>
+
+    <script src="../js/login.js" type="module"></script>
+</body>
+
+</html>

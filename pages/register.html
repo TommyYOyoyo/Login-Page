@@ -4,22 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Passman</title>
+    <title>S'inscrire</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Quicksand:wght@300&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../assets/shape.png">
-    <link rel="stylesheet" href="../styling/style.css">
+    <link rel="stylesheet" href="../css/style_registerLogin.css">
 
 </head>
 
+<!-- Body, specified as register page body -->
 <body class="register">
-    <h1 id="welcomeText">BIENVENUE.</h1>
-
+    <h1 id="welcomeText">BIENVENUE</h1>
+    
+    <!-- Container of the whole register box -->
     <div class="containerRegister container">
 
         <h2 id="formTitle">S'INSCRIRE</h2>
 
+        <!-- Form container -->
         <form id="form">
 
             <label>Identifiant:</label>
@@ -30,6 +33,7 @@
             <input type="text" id="email" placeholder="abc123@gmail.com">
             <label id="emailWarning" class="warning"></label>
 
+            <!-- Passwords boxes container -->
             <span id="passwords">
                 <label>Mot de passe:</label>
                 <div class="passwordBox">
@@ -46,6 +50,7 @@
                 <label id="confirmPasswordWarning" class="warning"></label>
             </span>
 
+            <!-- Sign in options box -->
             <div id="options">
                 <div id="redirects">
                     <div id="loginRedirect">
@@ -59,8 +64,15 @@
                 </div>
             </div>
 
+            <!--submit button-->
             <input type="submit" value="CRÉER UN COMPTE" id="submitButton">
         </form>
+    </div>
+
+    <!--Container of the alert page telling the user that they had successfully signed in -->
+    <div class="successfulSignIn">
+        <h1>Inscription réussie!</h1>
+        <h2 id="signInAlertText"></h2>
     </div>
 
     <script src="../js/register.js" type="module"></script>

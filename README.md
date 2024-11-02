@@ -1,3 +1,5 @@
-# Passman
+# Login-Register Pages
 
-wip.
+A school project - aesthetic register and login page.
+
+Language of the pages is French only.
