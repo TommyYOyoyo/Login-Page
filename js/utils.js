@@ -55,6 +55,8 @@ function getCookie(name) {
 // Function that logs out a existing user's session (those who're automatically logged in due to remember-me status)
 function logOut() {
     const id = "direct";
+    let credentials = getCookie(id);
+    if (credentials == "") return; // If credentials cannot be found, end function here
     let email;
     let username;
     let password;
@@ -63,16 +65,16 @@ function logOut() {
     const expires = "expires=" + date.toUTCString(date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000)));
 
     // Retrieve informations about the user
-    const credentials = getCookie(id).split('_');
+    credentials = credentials.split('_');
     email = credentials[0];
     username = credentials[1];
     password = credentials[2];
 
-    // Delete direct-login cookie
-    deleteCookie(id);
-
     // Sets new cookie to default cookies
     document.cookie = `${email}=${username}_${password}; ${expires}; SameSite=None; Secure; path=/;`;
+
+    // Delete direct-login cookie
+    deleteCookie(id);
 }
 
 // Function that deletes a cookie data

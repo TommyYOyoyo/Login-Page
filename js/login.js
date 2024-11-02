@@ -27,6 +27,8 @@ function verifyLoginCredentials(id, password) {
     const cookie = getCookie(id);
 
     if (cookie != "") {
+        // Erase any previous email warnings
+        idWarning.innerHTML = "";
         const storedPassword = cookie.split('_')[1];
         // If giving password isn't matching with stored password
         if (password != storedPassword) {
@@ -34,7 +36,6 @@ function verifyLoginCredentials(id, password) {
             return false;
         }
         // SUCCESS: Remove any previous warning when all cases are passed
-        idWarning.innerHTML = "";
         passwordWarning.innerHTML = "";
         return true;
     } else {
@@ -68,6 +69,8 @@ function login(e) {
     const password = document.querySelector("#password");
     const rememberMe = document.querySelector("#rememberMe");
 
+    const name = getCookie(id.value).split('_')[0];
+
     // If the user's credentials are correct
     if (verifyLoginCredentials(id.value, password.value)) {
 
@@ -82,7 +85,7 @@ function login(e) {
         });
 
         // Login successful, proceeds to display a successful login text and redirect to another page.
-        displayLogin(getCookie(id.value).split('_')[0]);
+        displayLogin(name);
     }
 }
 
