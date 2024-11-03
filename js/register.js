@@ -49,7 +49,7 @@ function verifyEmail(email) {
         warning.innerHTML = "*Adresse Email Invalide";
         return 0;
     // If user already exists, tells the user to login if true
-    } else if (getCookie(email.value) != "") {
+    } else if (getCookie(email.value) != "" || decodeURIComponent(document.cookie).indexOf(email.value) > -1) {
         warning.innerHTML = "*Vous êtes déjà inscrit. Veuillez vous connecter.";
         return 0;
     }
