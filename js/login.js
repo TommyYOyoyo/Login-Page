@@ -1,11 +1,11 @@
-import { RememberMe, showPassword, getCookie, logOut } from "./utils.js";
+import { RememberMe, showPassword, getCookie, logOut, encodeCValue, decodeCValue } from "./utils.js";
 
 // Main function
 function main() {
 
     // If the user had previously selected remember-me, directly login the user
     if (getCookie("direct") != "") {
-        let username = getCookie("direct").split('_')[1];
+        let username = decodeCValue("direct").username;
         displayLogin(username);
     } 
 
@@ -24,12 +24,13 @@ function main() {
 function verifyLoginCredentials(id, password) {
     const idWarning = document.querySelector("#idWarning");
     const passwordWarning = document.querySelector("#passwordWarning");
-    const cookie = getCookie(id);
+    const credentials = decodeCValue(id);
 
-    if (cookie != "") {
+    // If the cookie exists
+    if (credentials != null) {
         // Erase any previous email warnings
         idWarning.innerHTML = "";
-        const storedPassword = cookie.split('_')[1];
+        const storedPassword = credentials.password;
         // If giving password isn't matching with stored password
         if (password != storedPassword) {
             passwordWarning.innerHTML = "*Mot de passe incorrecte";
@@ -69,14 +70,12 @@ function login(e) {
     const password = document.querySelector("#password");
     const rememberMe = document.querySelector("#rememberMe");
 
-    const name = getCookie(id.value).split('_')[0];
-
     // If the user's credentials are correct
     if (verifyLoginCredentials(id.value, password.value)) {
+        const name = decodeCValue(id.value).username;
 
         // Log out every user who have existing remember-me sessions
         logOut();
-
         // RememberMe() verifies if the box is checked and performs the according actions
         RememberMe({
             email : id.value,

@@ -20,7 +20,7 @@ function main() {
 }
 
 // Verify if username is correct
-function verifyUsername(username, e) {
+function verifyUsername(username) {
     const warning = document.querySelector("#idWarning");
     // Check empty username and warn
     if (username.value == "") {
@@ -37,7 +37,7 @@ function verifyUsername(username, e) {
 }
 
 // Verify if email format is correct
-function verifyEmail(email, e) {
+function verifyEmail(email) {
     const warning = document.querySelector("#emailWarning");
     // Check if empty string was submitted
     if (email.value == "") {
@@ -59,7 +59,7 @@ function verifyEmail(email, e) {
 }
 
 // Verify if password respects criterias
-function verifyPassword(password, e) {
+function verifyPassword(password) {
     const warning = document.querySelector("#passwordWarning");
     switch (true) {
         // Check if password length > 8 chars
@@ -89,7 +89,7 @@ function verifyPassword(password, e) {
 }
 
 // Verify if two passwords are identical
-function verifyIdenticalPassword(password, confirmedP, e) {
+function verifyIdenticalPassword(password, confirmedP) {
     const warning = document.querySelector("#confirmPasswordWarning");
     // Check if two passwords are identical, if not, warn
     if (password.value != confirmedP.value) {
@@ -112,10 +112,10 @@ function register(e) {
     const confirmedPassword = document.querySelector("#confirmPassword");
     const rememberMe = document.querySelector("#rememberMe");
 
-    let verif1 = verifyUsername(username, e);
-    let verif2 = verifyEmail(email, e);
-    let verif3 = verifyPassword(password, e);
-    let verif4 = verifyIdenticalPassword(password, confirmedPassword, e);
+    let verif1 = verifyUsername(username);
+    let verif2 = verifyEmail(email);
+    let verif3 = verifyPassword(password);
+    let verif4 = verifyIdenticalPassword(password, confirmedPassword);
     // If any verification isn't passed, the function stops here
     if (verif1+verif2+verif3+verif4 != 4) return;
 

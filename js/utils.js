@@ -1,11 +1,19 @@
 // Export elements of this module
-export { RememberMe, showPassword, getCookie, deleteCookie, logOut};
+export { 
+     RememberMe,
+     showPassword,
+     getCookie,
+     deleteCookie,
+     logOut,
+     encodeCValue,
+     decodeCValue
+    };
 
 // In this project, I will be using cookies as a replacement of databases since using NodeJS would be too complexe to run on another computer.
 
 /* RememberMe() is a basic simplified version of the remember-me functionality, 
  * Since in a real project, saving the user credentials directly into the local cookies = huge flaw for the security
- * I would rather use express-sessions if this project was built on NodeJS
+ * Express-sessions would be a better choice if this project was built on NodeJS
  */
 
 /* Set the login cookies according to whether the user had chosen the remember-me box or not
@@ -17,16 +25,30 @@ function RememberMe({ email, username=null, password, rememberMe }) {
     // Expiring time
     const expires = "expires=" + date.toUTCString(date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000)));
 
-    // When used in login, retrieve the user's username as no username will be received as input
-    if (username == null) username = getCookie(email).split('_')[0];
+    // When used in login, retrieve the user's username saved in cookies, as no username will be received as an input
+    if (username == null) username = decodeCValue(email).username;
+
+    // JSON of credentials
+    let object;
 
     // Verify if rememberMe box had been chosen
     if (rememberMe == false) {
         // If rememberMe box is not chosen, save login credentials
-        document.cookie = `${email}=${username}_${password}; ${expires}; SameSite=None; Secure; path=/;`;
+        object = {
+            username: username,
+            password: password,
+        };
+        // Save the credentials under a serialized JSON object
+        document.cookie = `${email}=${encodeCValue(object)}; ${expires}; SameSite=None; Secure; path=/;`;
     } else {
-        // If it's chosen, give the user a status of "direct login" and delete its normal status
-        document.cookie = `direct=${email}_${username}_${password}; ${expires}; SameSite=None; Secure; path=/;`;
+        object = {
+            email: email,
+            username: username,
+            password: password,
+        };
+        // If it's chosen, give the user a status of "direct"-login and delete its normal status
+        // Save the credentials under a serialized JSON object
+        document.cookie = `direct=${encodeCValue(object)}; ${expires}; SameSite=None; Secure; path=/;`;
         deleteCookie(email);
     }
 }
@@ -55,29 +77,42 @@ function getCookie(name) {
 // Function that logs out a existing user's session (those who're automatically logged in due to remember-me status)
 function logOut() {
     const id = "direct";
-    let credentials = getCookie(id);
-    if (credentials == "") return; // If credentials cannot be found, end function here
-    let email;
-    let username;
-    let password;
-    const date = new Date();
+    const credentials = decodeCValue(id);
+    if (credentials == null) return; // If credentials cannot be found, end function here
+
     // Expiring time
+    const date = new Date();
     const expires = "expires=" + date.toUTCString(date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000)));
 
-    // Retrieve informations about the user
-    credentials = credentials.split('_');
-    email = credentials[0];
-    username = credentials[1];
-    password = credentials[2];
+    // Retrieve informations about the user by deserializing the JSON back to its object
+    let email = credentials.email;
+    let object = {
+        username: credentials.username,
+        password: credentials.password,
+    }
 
-    // Sets new cookie to default cookies
-    document.cookie = `${email}=${username}_${password}; ${expires}; SameSite=None; Secure; path=/;`;
+    // Sets new cookie to default standard cookies, save user credentials under a serialized JSON
+    document.cookie = `${email}=${encodeCValue(object)}; ${expires}; SameSite=None; Secure; path=/;`;
 
     // Delete direct-login cookie
     deleteCookie(id);
 }
 
-// Function that deletes a cookie data
+// Function that serializes a JSON cookie value
+function encodeCValue(object) {
+    return encodeURIComponent(decodeURIComponent(JSON.stringify(object)));
+}
+
+// Function that decodes a serialized JSON cookie value back to its normal object form, only if the cookie exists
+function decodeCValue(name) {
+    if (getCookie(name) != "") {
+        return JSON.parse(getCookie(name));
+    } else {
+        return null;
+    }
+}
+
+// Function that deletes a cookie data by making it expire immediately
 function deleteCookie(name) {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 }
