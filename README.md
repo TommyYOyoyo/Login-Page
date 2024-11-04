@@ -3,6 +3,8 @@
 A school project - aesthetic register and login page.
 
 Language of the pages is French only.
+
+**Please open the web pages using a server (e.g. Live Server), or else the JS modules wouldn't work.**
 #
 ##### The main page is the sign-in (register) page
 
